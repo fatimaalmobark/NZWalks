@@ -44,31 +44,31 @@ namespace NZWalks.API.Controllers
         // GET Method By ID/Name/COde/regionImageId
 
         [HttpGet]
-        [Route("{Name:alpha}")]
-        public IActionResult GetRegionById([FromRoute] string Name)
+        [Route("{Id:Guid}")]
+        public IActionResult GetRegionById([FromRoute] Guid Id)
         {
             //the function find() only using with id
-            //var region = nZWalksDbContext.Regions.Find(id);
+            var region = nZWalksDbContext.Regions.Find(Id);
             //the region Domain Models come from Database
-            var regionDomain = nZWalksDbContext.Regions.FirstOrDefault(x => Name == Name);
-            if (regionDomain == null)
+            //var regionDomain = nZWalksDbContext.Regions.FirstOrDefault(x => Id == Id);
+            if (region == null)
             {
                 return NotFound();
             }
 
             var regionDto = new RegionDTO()
             {
-                Id = regionDomain.Id,
-                Name = regionDomain.Name,
-                Code = regionDomain.Code,
-                RegionImageId = regionDomain.RegionImageId
+                Id = region.Id,
+                Name = region.Name,
+                Code = region.Code,
+                RegionImageId = region.RegionImageId
 
             };
-            return Ok(regionDomain);
+            return Ok(region);
         }
         // POST DTOs form Client 
         [HttpPost]
-        public IActionResult Create(AddRegionRequestDto addRegionRequestDto)
+        public IActionResult Create([FromBody]AddRegionRequestDto addRegionRequestDto)
         {
           
 
@@ -84,9 +84,18 @@ namespace NZWalks.API.Controllers
             nZWalksDbContext.Regions.Add(RegionDomainModel);
             nZWalksDbContext.SaveChanges();
 
-            //return Domain Model to Database
-            
-            return CreatedAtAction(nameof(GetRegionById),new {});
+            //return Domain Model to DTos
+            var regionDto = new RegionDTO()
+            {
+                Id=RegionDomainModel.Id,
+                Name = RegionDomainModel.Name,
+                Code= RegionDomainModel.Code,
+                RegionImageId= RegionDomainModel.RegionImageId
+
+            };
+
+
+            return CreatedAtAction(nameof(GetRegionById),new { id = RegionDomainModel.Id },RegionDomainModel);
 
         }
 
