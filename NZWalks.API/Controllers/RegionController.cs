@@ -19,7 +19,7 @@ namespace NZWalks.API.Controllers
 
         //GET ALL METHOD
         [HttpGet]
-        public IActionResult GetallRegion() 
+        public IActionResult GetallRegion()
         {
             //Get Domain Models from DataBase
             var RegionDomain = nZWalksDbContext.Regions.ToList();
@@ -29,16 +29,16 @@ namespace NZWalks.API.Controllers
             var regionDto = new List<RegionDTO>();
             foreach (var item in RegionDomain)
             {
-                regionDto.Add(new RegionDTO() 
+                regionDto.Add(new RegionDTO()
                 {
-                    Id= item.Id,
-                    Name= item.Name,
+                    Id = item.Id,
+                    Name = item.Name,
                     Code = item.Code,
-                    RegionImageId= item.RegionImageId
+                    RegionImageId = item.RegionImageId
                 });
             }
             // return Dto to CLients
-            return Ok (regionDto);
+            return Ok(regionDto);
         }
 
         // GET Method By ID/Name/COde/regionImageId
@@ -51,20 +51,42 @@ namespace NZWalks.API.Controllers
             //var region = nZWalksDbContext.Regions.Find(id);
             //the region Domain Models come from Database
             var regionDomain = nZWalksDbContext.Regions.FirstOrDefault(x => Name == Name);
-            if(regionDomain==null)
+            if (regionDomain == null)
             {
                 return NotFound();
             }
 
             var regionDto = new RegionDTO()
             {
-                Id= regionDomain.Id,
-                Name=regionDomain.Name,
-                Code=regionDomain.Code,
-                RegionImageId=regionDomain.RegionImageId
+                Id = regionDomain.Id,
+                Name = regionDomain.Name,
+                Code = regionDomain.Code,
+                RegionImageId = regionDomain.RegionImageId
 
             };
             return Ok(regionDomain);
+        }
+
+        //Post To Create New Region
+        [HttpPost]
+        public IActionResult Create([FromBody]AddRegionRequestDto addRegionRequestDto)
+        {
+            // Convert Dtos to Domain Model
+            var RegionDomain = new Region
+            {
+                Name= addRegionRequestDto.Name,
+                Code= addRegionRequestDto.Code, 
+                RegionImageId= addRegionRequestDto.RegionImageId
+
+            };
+            // use Domain Models to Create Region
+            nZWalksDbContext.Regions.Add(RegionDomain);
+            nZWalksDbContext.SaveChanges();
+
+
+            return Ok(RegionDomain);
+            
+
         }
 
     }
