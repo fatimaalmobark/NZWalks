@@ -66,26 +66,27 @@ namespace NZWalks.API.Controllers
             };
             return Ok(regionDomain);
         }
-
-        //Post To Create New Region
+        // POST DTOs form Client 
         [HttpPost]
-        public IActionResult Create([FromBody]AddRegionRequestDto addRegionRequestDto)
+        public IActionResult Create(AddRegionRequestDto addRegionRequestDto)
         {
-            // Convert Dtos to Domain Model
-            var RegionDomain = new Region
+          
+
+            // mapping DTOs to Domain Models
+            var RegionDomainModel = new Region()
             {
-                Name= addRegionRequestDto.Name,
-                Code= addRegionRequestDto.Code, 
-                RegionImageId= addRegionRequestDto.RegionImageId
+                Name = addRegionRequestDto.Name,
+                Code = addRegionRequestDto.Code,
+                RegionImageId = addRegionRequestDto.RegionImageId
 
             };
-            // use Domain Models to Create Region
-            nZWalksDbContext.Regions.Add(RegionDomain);
+            // using Domain Model to Create Region
+            nZWalksDbContext.Regions.Add(RegionDomainModel);
             nZWalksDbContext.SaveChanges();
 
-
-            return Ok(RegionDomain);
+            //return Domain Model to Database
             
+            return CreatedAtAction(nameof(GetRegionById),new {});
 
         }
 
