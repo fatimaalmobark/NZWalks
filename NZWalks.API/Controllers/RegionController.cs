@@ -143,18 +143,13 @@ namespace NZWalks.API.Controllers
         public async Task<IActionResult> Delete([FromRoute] Guid id) 
         {
             //Get Domain Model from DataBase
-            var regionDomainModel = await nZWalksDbContext.Regions.FirstOrDefaultAsync(x=>x.Id==id);
+            var regionDomainModel=await regionRepositry.DeleteAsync(id);
             if (regionDomainModel == null)
             {
                 return NotFound();
 
             }
-            // Deleted the Domain Model
-            nZWalksDbContext.Regions.Remove(regionDomainModel);
-            await nZWalksDbContext.SaveChangesAsync();
-
-
-
+          
             // mapping Domain Model to DTOs
             var regionDto = new RegionDTO()
             {

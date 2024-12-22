@@ -46,5 +46,17 @@ namespace NZWalks.API.Repositries
             await nZWalksDb.SaveChangesAsync();
             return (ExistingRegion);
         }
+
+        public async Task<Region?> DeleteAsync(Guid id)
+        {
+            var ExistingRegion=await nZWalksDb.Regions.FirstOrDefaultAsync(x=>x.Id==id);
+            if(ExistingRegion == null)
+            {
+                return null;
+            }
+            nZWalksDb.Regions.Remove(ExistingRegion);
+            await nZWalksDb.SaveChangesAsync();
+            return (ExistingRegion);
+        }
     }
 }
