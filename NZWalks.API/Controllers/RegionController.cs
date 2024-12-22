@@ -41,7 +41,11 @@ namespace NZWalks.API.Controllers
             return Ok(regionDto);
         }
 
-        // GET Method By ID/Name/COde/regionImageId
+
+
+
+
+        // GET Method By ID/Name/Code/regionImageId
 
         [HttpGet]
         [Route("{Id:Guid}")]
@@ -50,7 +54,7 @@ namespace NZWalks.API.Controllers
             //the function find() only using with id
             var region = nZWalksDbContext.Regions.Find(Id);
             //the region Domain Models come from Database
-            //var regionDomain = nZWalksDbContext.Regions.FirstOrDefault(x => Id == Id);
+            // var regionDomain = nZWalksDbContext.Regions.FirstOrDefault(x =>x. Id == Id);
             if (region == null)
             {
                 return NotFound();
@@ -68,9 +72,9 @@ namespace NZWalks.API.Controllers
         }
         // POST DTOs form Client 
         [HttpPost]
-        public IActionResult Create([FromBody]AddRegionRequestDto addRegionRequestDto)
+        public IActionResult Create([FromBody] AddRegionRequestDto addRegionRequestDto)
         {
-          
+
 
             // mapping DTOs to Domain Models
             var RegionDomainModel = new Region()
@@ -87,17 +91,74 @@ namespace NZWalks.API.Controllers
             //return Domain Model to DTos
             var regionDto = new RegionDTO()
             {
-                Id=RegionDomainModel.Id,
+                Id = RegionDomainModel.Id,
                 Name = RegionDomainModel.Name,
-                Code= RegionDomainModel.Code,
-                RegionImageId= RegionDomainModel.RegionImageId
+                Code = RegionDomainModel.Code,
+                RegionImageId = RegionDomainModel.RegionImageId
 
             };
 
 
-            return CreatedAtAction(nameof(GetRegionById),new { id = RegionDomainModel.Id },RegionDomainModel);
+            return CreatedAtAction(nameof(GetRegionById), new { id = regionDto.Id }, regionDto);
 
         }
+        //UPdate 
+        [HttpPut]
+        [Route("{id:guid}")]
+        public IActionResult Update([FromRoute] Guid id, UpdateRegionRequestDto updateRegionRequestDto)
+        {
+            //check the id
+            var regionDomainModel = nZWalksDbContext.Regions.FirstOrDefault(x => x.Id == id);
+            if (regionDomainModel == null)
+            {
+                return NotFound();
 
+            }
+            //mapping Dto to Domain Model
+            regionDomainModel.Name = updateRegionRequestDto.Name;
+            regionDomainModel.Code = updateRegionRequestDto.Code;
+            regionDomainModel.RegionImageId = updateRegionRequestDto.RegionImageId;
+            nZWalksDbContext.SaveChanges();
+
+            // mapping Domain Model to Dto 
+            var regionDto = new RegionDTO()
+            {
+                Id = regionDomainModel.Id,
+                Name = regionDomainModel.Name,
+                Code = regionDomainModel.Code,
+                RegionImageId = regionDomainModel.RegionImageId
+
+            };
+            return Ok(regionDto);
+        }
+        [HttpDelete]
+        [Route("{id:guid}")]
+        public IActionResult Delete([FromRoute] Guid id)
+        {
+            //Get Domain Model from DataBase
+            var regionDomainModel = nZWalksDbContext.Regions.FirstOrDefault(x=>x.Id==id);
+            if (regionDomainModel == null)
+            {
+                return NotFound();
+
+            }
+            // Deleted the Domain Model
+            nZWalksDbContext.Regions.Remove(regionDomainModel);
+            nZWalksDbContext.SaveChanges();
+
+
+
+            // mapping Domain Model to DTOs
+            var regionDto = new RegionDTO()
+            {
+                Id=regionDomainModel.Id,
+                Name=regionDomainModel.Name,
+                Code = regionDomainModel.Code,  
+                RegionImageId=regionDomainModel.RegionImageId
+
+            };
+
+            return Ok(regionDto);
+        }
     }
 }
