@@ -134,7 +134,7 @@ namespace NZWalks.API.Controllers
         }
         [HttpDelete]
         [Route("{id:guid}")]
-        public async Task<IActionResult> Delete([FromRoute] Guid id)
+        public async Task<IActionResult> Delete([FromRoute] Guid id) 
         {
             //Get Domain Model from DataBase
             var regionDomainModel = await nZWalksDbContext.Regions.FirstOrDefaultAsync(x=>x.Id==id);
