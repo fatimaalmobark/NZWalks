@@ -22,7 +22,8 @@ namespace NZWalks.API.Repositries
 
         public async Task<Region?> GetRegionByIdAsync(Guid id)
         {
-            return await nZWalksDb.Regions.FirstOrDefaultAsync(x => x.Id == id);        }
+            return await nZWalksDb.Regions.FirstOrDefaultAsync(x => x.Id == id);  
+        }
 
         public async Task<Region> CreateAsync(Region region)
         {
