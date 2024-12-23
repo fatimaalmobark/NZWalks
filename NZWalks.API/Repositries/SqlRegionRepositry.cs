@@ -27,6 +27,7 @@ namespace NZWalks.API.Repositries
         public async Task<Region> CreateAsync(Region region)
         {
             await nZWalksDb.AddAsync(region);
+            await nZWalksDb.SaveChangesAsync();
             return (region);
              
         }

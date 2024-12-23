@@ -57,6 +57,7 @@ namespace NZWalks.API.Controllers
         public async Task<IActionResult> GetRegionById([FromRoute] Guid Id)
         {
             //the function find() only using with id
+           // var region = nZWalksDbContext.Regions.Find(Id);
             var region = await regionRepositry.GetRegionByIdAsync(Id);
             //the region Domain Models come from Database
             // var regionDomain = nZWalksDbContext.Regions.FirstOrDefault(x =>x. Id == Id);
