@@ -59,7 +59,6 @@ namespace NZWalks.API.Controllers
 
 
         // GET Method By ID/Name/Code/regionImageId
-
         [HttpGet]
         [Route("{Id:Guid}")]
         public async Task<IActionResult> GetRegionById([FromRoute] Guid Id)
