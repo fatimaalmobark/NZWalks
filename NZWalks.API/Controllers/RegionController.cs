@@ -27,7 +27,7 @@ namespace NZWalks.API.Controllers
 
         //GET ALL Method 
         [HttpGet]
-        public async Task<IActionResult> GetallRegion()
+        public async Task<IActionResult> GetallRegion() 
         {
             //Get Domain Models from DataBase
             var RegionDomain = await regionRepositry.GetallRegionAsync();
