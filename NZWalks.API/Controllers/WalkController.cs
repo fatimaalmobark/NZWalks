@@ -24,7 +24,6 @@ namespace NZWalks.API.Controllers
             this.walkRepositry = walkRepositry;
         }
         [HttpPost]
-        
         public async Task<IActionResult> Create([FromBody] AddWalkRequestDto addWalkRequestDto)
         {
             //mapping Dto to Domain Model
