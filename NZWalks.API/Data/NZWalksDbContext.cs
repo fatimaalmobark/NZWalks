@@ -12,7 +12,7 @@ namespace NZWalks.API.Data
 
         public DbSet<Difficalty> Difficulties { get; set; }
         public DbSet<Region> Regions { get; set; }
-        public DbSet<Walk>walks { get; set; }
+        public DbSet<Walk> Walks { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -27,7 +27,7 @@ namespace NZWalks.API.Data
                 },
                 new Difficalty()
                 {
-                    Id=Guid.Parse("bf49e8e0-f19d-49f3-9580-a613e35b4c3d"),
+                    Id=Guid.Parse("98526a56-dbbf-4b86-b9a2-dd2b526f0fc1"),
                     Name="MIDUEM"
                 },
                 new Difficalty()

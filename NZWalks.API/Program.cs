@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using NZWalks.API.AutoMapper;
 using NZWalks.API.Data;
 using NZWalks.API.Repositries;
@@ -14,6 +13,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<NZWalksDbContext>(Options => Options.UseSqlServer(builder.Configuration.GetConnectionString("NZWalksConnectionString")));
 builder.Services.AddScoped<IRegionRepositry,SqlRegionRepositry>();
+
+builder.Services.AddScoped<IWalkRepositry, SqlWalkRepositry>();
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
 
 
