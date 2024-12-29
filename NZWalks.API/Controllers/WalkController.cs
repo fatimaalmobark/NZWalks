@@ -28,30 +28,11 @@ namespace NZWalks.API.Controllers
         {
             //mapping Dto to Domain Model
            var WalkDomainModel=mapper.Map<Walk>(addWalkRequestDto);
-            await walkRepositry.CreateAsync(WalkDomainModel);
+           await walkRepositry.CreateAsync(WalkDomainModel);
 
             //mapping Domain Model to DTOs
 
- return Ok (mapper.Map<WalkDTO>(WalkDomainModel));
-
-
+            return Ok(mapper.Map<WalkDTO>(WalkDomainModel));
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }
