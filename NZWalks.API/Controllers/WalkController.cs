@@ -17,7 +17,7 @@ namespace NZWalks.API.Controllers
         private readonly IMapper mapper;
         private readonly IWalkRepositry walkRepositry;
 
-        public WalkController(NZWalksDbContext nZWalksDbContext,IMapper mapper, IWalkRepositry walkRepositry)
+        public WalkController(NZWalksDbContext nZWalksDbContext, IMapper mapper, IWalkRepositry walkRepositry)
         {
             this.nZWalksDbContext = nZWalksDbContext;
             this.mapper = mapper;
@@ -27,12 +27,13 @@ namespace NZWalks.API.Controllers
         public async Task<IActionResult> Create([FromBody] AddWalkRequestDto addWalkRequestDto)
         {
             //mapping Dto to Domain Model
-           var WalkDomainModel=mapper.Map<Walk>(addWalkRequestDto);
-           await walkRepositry.CreateAsync(WalkDomainModel);
+            var WalkDomainModel = mapper.Map<Walk>(addWalkRequestDto);
+            await walkRepositry.CreateAsync(WalkDomainModel);
 
             //mapping Domain Model to DTOs
 
             return Ok(mapper.Map<WalkDTO>(WalkDomainModel));
+         
         }
     }
 }
