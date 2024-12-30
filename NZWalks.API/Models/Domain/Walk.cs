@@ -12,7 +12,7 @@ namespace NZWalks.API.Models.Domain
        
         public Guid RegionId { get; set; }
         public Guid DifficaltyId { get; set; }
-
+                   
         //Navigation Prpoerites
         public Difficalty Difficalty { get; set; }
         public Region Region  { get; set; }
