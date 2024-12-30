@@ -81,9 +81,9 @@ namespace NZWalks.API.Controllers
                 RegionImageId = region.RegionImageId
 
             };
-            return Ok(region);
+            return Ok(mapper.Map<RegionDTO>(regionDto));
         }
-        // POST DTOs form Client 
+        // POST DTOs From Client 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] AddRegionRequestDto addRegionRequestDto)
         {
@@ -112,9 +112,9 @@ namespace NZWalks.API.Controllers
 
             //};
             var regionDto = mapper.Map<RegionDTO>(RegionDomainModel);
+            return Ok(regionDto);
 
-
-            return CreatedAtAction(nameof(GetRegionById), new { id = regionDto.Id }, regionDto);
+          //  return CreatedAtAction(nameof(GetRegionById), new { id = regionDto.Id }, regionDto);
 
         }
         //UPdate 
