@@ -1,4 +1,7 @@
-﻿using NZWalks.API.Data;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using NZWalks.API.Data;
 using NZWalks.API.Models.Domain;
 
 namespace NZWalks.API.Repositries
@@ -17,6 +20,11 @@ namespace NZWalks.API.Repositries
             await nZWalksDbContext.Walks.AddAsync(walk);
             await nZWalksDbContext.SaveChangesAsync();
             return (walk);
+        }
+
+        public async Task<List<Walk>> GetAllWalkAsync()
+        {
+            return await nZWalksDbContext.Walks.Include("Difficalty").Include("Region").ToListAsync();
         }
     }
 }

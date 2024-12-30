@@ -6,5 +6,6 @@ namespace NZWalks.API.Repositries
     {
 
         Task<Walk> CreateAsync(Walk walk);
+        Task<List<Walk>> GetAllWalkAsync();
     }
 }

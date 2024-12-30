@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic;
 using NZWalks.API.Data;
 using NZWalks.API.Models.Domain;
@@ -22,6 +23,17 @@ namespace NZWalks.API.Controllers
             this.nZWalksDbContext = nZWalksDbContext;
             this.mapper = mapper;
             this.walkRepositry = walkRepositry;
+        }
+        [HttpGet]
+        public async Task<IActionResult> GetAllWalks()
+        {
+            //mapping Domain Model to DTos
+          var WalkDomain=  await walkRepositry.GetAllWalkAsync();
+
+          
+            return Ok(mapper.Map<List<WalkDTO>>(WalkDomain));
+
+
         }
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] AddWalkRequestDto addWalkRequestDto)
