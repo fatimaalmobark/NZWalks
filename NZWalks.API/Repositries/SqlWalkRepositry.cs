@@ -35,12 +35,26 @@ namespace NZWalks.API.Repositries
 
         }
 
-        public async Task<List<Walk>> GetAllWalkAsync()
+        public async Task<List<Walk>> GetAllWalkAsync( string? FilterOn=null,  string? FilterQuery=null)
         {
-            return await nZWalksDbContext.Walks
-                .Include("Difficalty")
-                .Include("Region")
-                .ToListAsync();
+
+            var Walk = nZWalksDbContext.Walks.Include("Difficalty").Include("Region").AsQueryable();
+
+
+            //Filtering
+            if(string.IsNullOrWhiteSpace(FilterOn)==false  &&  string.IsNullOrWhiteSpace(FilterQuery) == false)
+            {
+                if (FilterOn.Equals("name", StringComparison.OrdinalIgnoreCase))
+                {
+                    Walk = Walk.Where(x => x.Name.Contains(FilterQuery));
+                }
+            }
+
+            return await Walk.ToListAsync();
+            //return await nZWalksDbContext.Walks
+               // .Include("Difficalty")
+               // .Include("Region")
+               // .ToListAsync();
         }
 
         public async Task<Walk?> GetWalkByIdAsync(Guid id)
