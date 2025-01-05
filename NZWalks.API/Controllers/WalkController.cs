@@ -26,10 +26,10 @@ namespace NZWalks.API.Controllers
             this.walkRepositry = walkRepositry;
         }
         [HttpGet]
-        public async Task<IActionResult> GetAllWalks()
+        public async Task<IActionResult> GetAllWalks([FromQuery] string? FilterOn, [FromQuery] string? FilterQuery)
         {
             //mapping Domain Model to DTos
-            var WalkDomain = await walkRepositry.GetAllWalkAsync();
+            var WalkDomain = await walkRepositry.GetAllWalkAsync(FilterOn, FilterQuery);
 
 
             return Ok(mapper.Map<List<WalkDTO>>(WalkDomain));
