@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNet.Identity;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using NZWalks.API.Models.DTO;
 
 namespace NZWalks.API.Controllers
