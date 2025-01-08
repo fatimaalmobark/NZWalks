@@ -18,10 +18,15 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<NZWalksDbContext>(Options => Options.UseSqlServer(builder.Configuration.GetConnectionString("NZWalksConnectionString")));
 builder.Services.AddDbContext<AuthDbContext>(Options => Options.UseSqlServer(builder.Configuration.GetConnectionString("NZWalksAuthString")));
 
-builder.Services.AddScoped<IRegionRepositry,SqlRegionRepositry>();
 
+
+
+builder.Services.AddScoped<ItokenRepositry, TokenRepositry>();
+builder.Services.AddScoped<IRegionRepositry,SqlRegionRepositry>();
 builder.Services.AddScoped<IWalkRepositry, SqlWalkRepositry>();
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
+
+
 
 // Using IdentityRole
 builder.Services.AddIdentityCore<IdentityUser>()

@@ -17,7 +17,7 @@ namespace NZWalks.API.Data
             var ReaderRoleId = "c9622e8c-9b94-4ed8-90e3-f77ad0e95d35";
             var WriterRoleId = "f4c96308-6e56-4176-98d0-5aa08db78a7a";
 
-            var role = new List<IdentityRole>
+            var roles = new List<IdentityRole>
             {
                 new IdentityRole {
 
@@ -36,6 +36,7 @@ namespace NZWalks.API.Data
                     NormalizedName="Writer".ToUpper()
                 }
             };
+            builder.Entity<IdentityRole>().HasData(roles);
         }
     }
 }
