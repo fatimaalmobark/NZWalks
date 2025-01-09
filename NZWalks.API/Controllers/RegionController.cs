@@ -62,8 +62,8 @@ namespace NZWalks.API.Controllers
 
         // GET Method By ID/Name/Code/regionImageId
         [HttpGet]
+        [Authorize(Roles = "Writer")]
         [Route("{Id:Guid}")]
-        [Authorize(Roles ="reader")]
         public async Task<IActionResult> GetRegionById([FromRoute] Guid Id)
         {
             //the function find() only using with id
@@ -88,7 +88,7 @@ namespace NZWalks.API.Controllers
         }
         // POST DTOs From Client 
         [HttpPost]
-        [Authorize(Roles ="writer")]
+        [Authorize(Roles ="reader,Writer")]
         public async Task<IActionResult> Create([FromBody] AddRegionRequestDto addRegionRequestDto)
         {
 
@@ -124,7 +124,7 @@ namespace NZWalks.API.Controllers
         //UPdate 
         [HttpPut]
         [Route("{id:guid}")]
-        
+        [Authorize(Roles ="reader,Writer")]
         public async Task<IActionResult> Update([FromRoute] Guid id, UpdateRegionRequestDto updateRegionRequestDto)
         {
         //    //mapping Dto to Domain Model
