@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿using System.Linq.Expressions;
+using System.Text.Json;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -19,41 +21,55 @@ namespace NZWalks.API.Controllers
         private readonly NZWalksDbContext nZWalksDbContext;
         private readonly IRegionRepositry regionRepositry;
         private readonly IMapper mapper;
+        private readonly ILogger<RegionController> logger;
 
-        public RegionController(NZWalksDbContext context,IRegionRepositry regionRepositry,IMapper mapper)
+        public RegionController(NZWalksDbContext context,IRegionRepositry regionRepositry,IMapper mapper,ILogger<RegionController> logger)
         {
             this.nZWalksDbContext = context;
             this.regionRepositry = regionRepositry;
             this.mapper = mapper;
+            this.logger = logger;
         }
 
         //GET ALL Method 
         [HttpGet]
         public async Task<IActionResult> GetallRegion() 
         {
-            //Get Domain Models from DataBase
-            var RegionDomain = await regionRepositry.GetallRegionAsync();
+            try
+            {
+
+            throw new Exception("this is An Exception");
+                logger.LogInformation("The GetAllRegion is Invoke");
+                //Get Domain Models from DataBase
+                var RegionDomain = await regionRepositry.GetallRegionAsync();
 
 
-            //// Mapping Doamin Models to DTOs
-            //var regionDto = new List<RegionDTO>();
-            //foreach (var item in RegionDomain)
-            //{
-            //    regionDto.Add(new RegionDTO()
-            //    {
-            //        Id = item.Id,
-            //        Name = item.Name,
-            //        Code = item.Code,
-            //        RegionImageId = item.RegionImageId
-            //    });
-            //}
+                //// Mapping Doamin Models to DTOs
+                //var regionDto = new List<RegionDTO>();
+                //foreach (var item in RegionDomain)
+                //{
+                //    regionDto.Add(new RegionDTO()
+                //    {
+                //        Id = item.Id,
+                //        Name = item.Name,
+                //        Code = item.Code,
+                //        RegionImageId = item.RegionImageId
+                //    });
+                //}
 
-            // Mapping Doamin Models to DTOs
-           // var regionDto = mapper.Map<List<RegionDTO>>(RegionDomain);
-            
+                // Mapping Doamin Models to DTOs
+                // var regionDto = mapper.Map<List<RegionDTO>>(RegionDomain);
+                logger.LogInformation($"Finished the GetAllRegion Request: {JsonSerializer.Serialize(RegionDomain)}");
 
-            // return Dto to CLients
-            return Ok(mapper.Map<List<RegionDTO>>(RegionDomain));
+                // return Dto to CLients
+                return Ok(mapper.Map<List<RegionDTO>>(RegionDomain));
+            }
+            catch (Exception ex)
+            {
+                logger.LogWarning("This Warning Messege");
+                logger.LogError("this is a Error Messege", ex);
+                throw;
+            }
         }
 
 

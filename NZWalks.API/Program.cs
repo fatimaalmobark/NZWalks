@@ -8,9 +8,23 @@ using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+using Serilog;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+//Adding Logger 
+var logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .WriteTo.File("log/NZWalks_Log.txt", rollingInterval:
+    RollingInterval.Minute)
+    .MinimumLevel.Warning()
+    .CreateLogger();
+
+builder.Logging.ClearProviders();
+builder.Logging.AddSerilog(logger);
+
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
