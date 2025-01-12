@@ -8,16 +8,16 @@ using NZWalks.API.Data;
 
 #nullable disable
 
-namespace NZWalks.API.Migrations.NZWalksAuthDb
+namespace NZWalks.API.Migrations
 {
     [DbContext(typeof(AuthDbContext))]
-    partial class NZWalksAuthDbContextModelSnapshot : ModelSnapshot
+    partial class AuthDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.0")
+                .HasAnnotation("ProductVersion", "8.0.11")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -51,15 +51,15 @@ namespace NZWalks.API.Migrations.NZWalksAuthDb
                     b.HasData(
                         new
                         {
-                            Id = "6c3bb95d-aa87-4de9-a96b-7e160bc51c02",
-                            ConcurrencyStamp = "6c3bb95d-aa87-4de9-a96b-7e160bc51c02",
-                            Name = "Reader",
+                            Id = "c9622e8c-9b94-4ed8-90e3-f77ad0e95d35",
+                            ConcurrencyStamp = "c9622e8c-9b94-4ed8-90e3-f77ad0e95d35",
+                            Name = "reader",
                             NormalizedName = "READER"
                         },
                         new
                         {
-                            Id = "99cad39f-00fd-409a-a3a7-b4d46d5f73e0",
-                            ConcurrencyStamp = "99cad39f-00fd-409a-a3a7-b4d46d5f73e0",
+                            Id = "f4c96308-6e56-4176-98d0-5aa08db78a7a",
+                            ConcurrencyStamp = "f4c96308-6e56-4176-98d0-5aa08db78a7a",
                             Name = "Writer",
                             NormalizedName = "WRITER"
                         });

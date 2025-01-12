@@ -11,7 +11,7 @@ using NZWalks.API.Data;
 
 namespace NZWalks.API.Migrations.NZWalksAuthDb
 {
-    [DbContext(typeof(NZWalksAuthDbContext))]
+    [DbContext(typeof(AuthDbContext))]
     [Migration("20241231131205_Nz Auth Db")]
     partial class NzAuthDb
     {
