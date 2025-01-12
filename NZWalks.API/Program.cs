@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using NZWalks.API.MiddleWare;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -116,7 +117,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
-
+app.UseMiddleware<ExceptionHandlerMiddelWare>();
 app.MapControllers();
 
 app.Run();
